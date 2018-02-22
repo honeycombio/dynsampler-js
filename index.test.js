@@ -1,5 +1,5 @@
 jest.mock("nanotimer");
-import Sampler, { PerKey, Avg } from ".";
+import { Sampler, PerKey, Avg } from ".";
 
 describe("Sampler", () => {
   test("initializes with default values", () => {
@@ -38,11 +38,13 @@ describe("Avg", () => {
     expect(sampler.getSampleRateCalledTimes).toBeUndefined();
   });
 
-  test.skip("gets a sample rate", () => {
+  test("gets a sample rate", () => {
     const sampler = new Avg();
+    expect(sampler.hasReceivedTraffic).toEqual(false);
     new Array(1500).fill(1).forEach(() => sampler.getSampleRate("my-key"));
     // manual tick is equal to ""
     sampler.timer.tick();
+    expect(sampler.hasReceivedTraffic).toEqual(true);
     const a = sampler.getSampleRate("my-key");
     // No traffic means this is the goal sample rate
     expect(a).toEqual(10);

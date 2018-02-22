@@ -29,7 +29,7 @@ function that needs to be defined, but it is often useful to collect
 additional configuration from the constructor:
 
 ```javascript
-import Sampler from "dynamic-sampler";
+import { Sampler } from "dynamic-sampler";
 
 export class PerKey extends Sampler {
   constructor(opts = {}) {

@@ -3,7 +3,7 @@ const debug = require("debug")("dynamic-sampler");
 
 // A Sampler handles construction, timer initialization, and getting the sample
 // rate.
-export default class Sampler {
+export class Sampler {
   constructor({ clearFrequencySec } = {}) {
     // TODO: runtime validate inputs; make sure they're numbers
     this.clearFrequencySec = clearFrequencySec || 30;
@@ -112,15 +112,17 @@ export class Avg extends Sampler {
         extra += goalForKey - count / newRates.get(key);
       }
     });
+    this.savedSampleRates = newRates;
+    this.hasReceivedTraffic = true;
   }
   getSampleRate(key) {
-    // TODO: how well supported is this syntax
-    // (basically no IE native support. what about babel/etc?)
-    const superSampleRate = super.getSampleRate(key);
+    debug("hasReceivedTraffic", this.hasReceivedTraffic);
     if (!this.hasReceivedTraffic) {
       return this.goalSampleRate;
     } else {
-      return superSampleRate;
+      // TODO: how well supported is this syntax
+      // (basically no IE native support. what about babel/etc?)
+      return super.getSampleRate(key);
     }
   }
 }
