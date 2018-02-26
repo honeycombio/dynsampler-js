@@ -49,16 +49,15 @@ export class Sampler {
   }
 }
 
-//const sampler = new PerKey({clearFrequencySec: 100, perKeyThroughputSec: 2})
-export class PerKey extends Sampler {
+export class PerKeyThroughput extends Sampler {
   constructor(opts = {}) {
     super(opts);
-    this.perKeyThroughputSec = opts.perKeyThroughputSec || 5;
+    this.perKeyThroughputSec = opts.perKeyThroughputSec || 10;
   }
   updateMaps() {
     debug("PerKey.updateMaps()", this.id && this.id);
     if (this.currentCounts.size == 0) {
-      //no traffic in the last 30s. clear the result Map
+      // no traffic in the last clearFrequencySecs. clear the result Map
       this.savedSampleRates.clear();
       return;
     }
@@ -66,13 +65,13 @@ export class PerKey extends Sampler {
 
     const newRates = new Map();
     this.currentCounts.forEach((val, key) => {
-      newRates.set(key, Math.max(1, val / actualPerKeyRate));
+      newRates.set(key, Math.floor(Math.max(1, val / actualPerKeyRate)));
     });
     this.savedSampleRates = newRates;
   }
 }
 
-export class Avg extends Sampler {
+export class AvgSampleRate extends Sampler {
   constructor(opts = {}) {
     super(opts);
     this.goalSampleRate = opts.goalSampleRate || 10;

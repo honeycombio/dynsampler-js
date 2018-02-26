@@ -1,5 +1,5 @@
 {
-  "name": "dynamic-sampler",
+  "name": "dynsampler",
   "version": "1.0.0",
   "description": "Dynamic sampling of events",
   "main": "lib/dynamic-sampler.js",
@@ -7,7 +7,7 @@
   "repository": "https://github.com/honeycombio/dynamic-sampler.js",
   "author":
     "Christopher Biscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
-  "license": "MIT",
+  "license": "Apache 2.0",
   "scripts": {
     "build": "microbundle --output lib --external all",
     "start": "microbundle watch --output lib --external all",

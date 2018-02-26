@@ -5,11 +5,23 @@ rates when sending data to services like [honeycomb](https://honeycomb.io)
 
 # Usage
 
+### With defaults:
+
 ```javascript
-import { PerKey } from "dynamic-sampler";
-const sampler = new PerKey();
+import { PerKeyThroughput } from "dynamic-sampler";
+const sampler = new PerKeyThroughput();
 
 const rate = sampler.getSampleRate("my key");
+```
+
+### With options
+
+```javascript
+import { PerKeyThroughput } from "dynamic-sampler";
+const sampler = new PerKeyThroughput({
+  clearFrequencySec: 100,
+  perKeyThroughputSec: 2
+});
 ```
 
 ## Choosing a Sampler
@@ -46,7 +58,7 @@ export class PerKey extends Sampler {
 
     const newRates = new Map();
     this.currentCounts.forEach((val, key) => {
-      newRates.set(key, Math.max(1, val / actualPerKeyRate));
+      newRates.set(key, Math.floor(Math.max(1, val / actualPerKeyRate)));
     });
     this.savedSampleRates = newRates;
   }
