@@ -1,6 +1,6 @@
 {
   "name": "dynsampler",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Dynamic sampling of events",
   "main": "lib/dynamic-sampler.js",
   "module": "lib/dynamic-sampler.m.js",
