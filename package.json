@@ -1,10 +1,12 @@
 {
   "name": "dynsampler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Dynamic sampling of events",
-  "main": "lib/dynamic-sampler.js",
-  "module": "lib/dynamic-sampler.m.js",
-  "repository": "https://github.com/honeycombio/dynamic-sampler.js",
+  "main": "lib/dynsampler.js",
+  "umd:main": "lib/dynsampler.umd.js",
+  "module": "lib/dynsampler.m.js",
+  "source": "index.js",
+  "repository": "https://github.com/honeycombio/dynsampler.js",
   "author":
     "Christopher Biscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
   "license": "Apache 2.0",
