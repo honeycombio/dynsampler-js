@@ -3,12 +3,29 @@
 This is a collection of samplers that can be used to provide sample
 rates when sending data to services like [honeycomb](https://honeycomb.io)
 
+`dynsampler` is a javascript library for doing dynamic sampling of traffic
+before sending it on to [Honeycomb](https://honeycomb.io) (or another
+analytics system). It contains several sampling algorithms to help you
+select a representative set of events instead of a full stream.
+
+A "sample rate" of 100 means that for every 100 requests, we capture a
+single event and indicate that it represents 100 similar requests.
+
+For more information about using Honeycomb, see our
+[docs](https://honeycomb.io/docs).
+
+# Installation
+
+```shell
+yarn add dynsampler
+```
+
 # Usage
 
 ### With defaults:
 
 ```javascript
-import { PerKeyThroughput } from "dynamic-sampler";
+import { PerKeyThroughput } from "dynsampler";
 const sampler = new PerKeyThroughput();
 
 const rate = sampler.getSampleRate("my key");
@@ -17,7 +34,7 @@ const rate = sampler.getSampleRate("my key");
 ### With options
 
 ```javascript
-import { PerKeyThroughput } from "dynamic-sampler";
+import { PerKeyThroughput } from "dynsampler";
 const sampler = new PerKeyThroughput({
   clearFrequencySec: 100,
   perKeyThroughputSec: 2
@@ -26,7 +43,22 @@ const sampler = new PerKeyThroughput({
 
 ## Choosing a Sampler
 
-TODO
+This package is intended to help sample a stream of tracking events,
+where events are typically created in response to a stream of traffic
+(for the purposes of logging or debugging). In general, sampling is
+used to reduce the total volume of events necessary to represent the
+stream of traffic in a meaningful way.
+
+There are a variety of available techniques for reducing a high-volume
+stream of incoming events to a lower-volume, more manageable stream of
+events. Depending on the shape of your traffic, one may serve better
+than another, or you may need to write a new one! Please consider
+contributing it back to this package if you do.
+
+* If your system has a rough cap on the rate it can receive events and
+  your partitioned keyspace is fairly steady, use PerKeyThroughput,
+  which will calculate sample rates based on keeping the event
+  throughput roughly constant per key/partition (e.g. per user id)
 
 # Implementing New Samplers
 
@@ -41,7 +73,7 @@ function that needs to be defined, but it is often useful to collect
 additional configuration from the constructor:
 
 ```javascript
-import { Sampler } from "dynamic-sampler";
+import { Sampler } from "dynsampler";
 
 export class PerKey extends Sampler {
   constructor(opts = {}) {
