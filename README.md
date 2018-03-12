@@ -25,8 +25,8 @@ yarn add dynsampler
 ### With defaults:
 
 ```javascript
-import { PerKeyThroughput } from "dynsampler";
-const sampler = new PerKeyThroughput();
+import { AvgSampleRate } from "dynsampler";
+const sampler = new AvgSampleRate();
 
 const rate = sampler.getSampleRate("my key");
 ```
@@ -34,10 +34,10 @@ const rate = sampler.getSampleRate("my key");
 ### With options
 
 ```javascript
-import { PerKeyThroughput } from "dynsampler";
-const sampler = new PerKeyThroughput({
+import { AvgSampleRate } from "dynsampler";
+const sampler = new AvgSampleRate({
   clearFrequencySec: 100,
-  perKeyThroughputSec: 2
+  goalSampleRate: 50
 });
 ```
 
@@ -54,6 +54,12 @@ stream of incoming events to a lower-volume, more manageable stream of
 events. Depending on the shape of your traffic, one may serve better
 than another, or you may need to write a new one! Please consider
 contributing it back to this package if you do.
+
+* If your system has a exponential falloff of frequency given a specific key
+  set, (and this describes most cases in which dynamic sampling is useful),
+  AvgSampleRate is your best bet. It will try and reduce the most frequent
+  traffic while highlighting the less frequent traffic based on the logarithm of
+  the traffic's frequency.
 
 * If your system has a rough cap on the rate it can receive events and
   your partitioned keyspace is fairly steady, use PerKeyThroughput,
