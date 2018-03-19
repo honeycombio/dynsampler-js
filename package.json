@@ -1,6 +1,6 @@
 {
   "name": "dynsampler",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Dynamic sampling of events",
   "main": "lib/dynsampler.js",
   "umd:main": "lib/dynsampler.umd.js",
