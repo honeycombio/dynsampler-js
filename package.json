@@ -14,6 +14,7 @@
     "build": "microbundle --output lib --external all",
     "start": "microbundle watch --output lib --external all",
     "test": "jest",
+    "lint": "prettier --parser flow --write *.{js,jsx}",
     "precommit": "lint-staged"
   },
   "lint-staged": {
