@@ -9,11 +9,12 @@
   "repository": "https://github.com/honeycombio/dynsampler.js",
   "author":
     "Christopher Biscardi <chris@christopherbiscardi.com> (@chrisbiscardi)",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "scripts": {
     "build": "microbundle --output lib --external all",
     "start": "microbundle watch --output lib --external all",
     "test": "jest",
+    "lint": "prettier --parser flow --write *.{js,jsx}",
     "precommit": "lint-staged"
   },
   "lint-staged": {
