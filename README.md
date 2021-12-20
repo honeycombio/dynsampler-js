@@ -1,8 +1,8 @@
 # Dynamic Sampler
 
-[![OSS Lifecycle](https://img.shields.io/osslifecycle/honeycombio/dynsampler-js?color=pink)](https://github.com/honeycombio/home/blob/main/honeycomb-oss-lifecycle-and-practices.md)
+[![OSS Lifecycle](https://img.shields.io/osslifecycle/honeycombio/dynsampler-js)](https://github.com/honeycombio/home/blob/main/honeycomb-oss-lifecycle-and-practices.md)
 
-**STATUS: this project is being sunset.** See https://github.com/honeycombio/dynsampler-js/issues/32
+**STATUS: this project has been archived.** See https://github.com/honeycombio/home/blob/main/honeycomb-oss-lifecycle-and-practices.md
 
 This is a collection of samplers that can be used to provide sample
 rates when sending data to services like [honeycomb](https://honeycomb.io)
